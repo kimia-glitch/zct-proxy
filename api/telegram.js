@@ -110,7 +110,13 @@ function feasibilityMsg(portfolio, monthly) {
 }
 
 function bridgeMsg(u) {
-  return `Ok, got it — so you want to ${u.goalRaw}.\n\nTo do that, you need to eventually become a Level 4 trader. We'll start by identifying your current trader level.`;
+  const raw = u.goalRaw.trim();
+  const lower = raw.toLowerCase();
+  let goalPhrase;
+  if (lower.startsWith('i want to')) goalPhrase = lower.replace('i want to', 'you want to');
+  else if (lower.startsWith('i want')) goalPhrase = lower.replace('i want', 'you want');
+  else goalPhrase = `achieve: ${raw}`;
+  return `Ok, got it — so ${goalPhrase}.\n\nTo do that, you need to eventually become a Level 4 trader. We'll start by identifying your current trader level.`;
 }
 
 function splitMessage(text, max = 4000) {
